@@ -1,0 +1,18 @@
+Test: 1
+Logger:
+  LogSavePath: ./storage
+  LogDefaultFileName: app
+  LogsRotationTime: 1 # 日志文件分割频率(小时)
+  LogsRotationCount: 200 # 日志文件保存个数
+  logFileExt: .log
+Database:
+  DBtype: mysql
+  UserName: root
+  Password: dong@931020
+  Host: 127.0.0.1:3306
+  DbName: go-gin
+  TablePrefix: gin_
+  Charset: utf8
+  ParseTime: true
+  MaxIdleConns: 10
+  MaxOpenConns: 30
