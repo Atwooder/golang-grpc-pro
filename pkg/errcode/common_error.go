@@ -1,5 +1,6 @@
 package errcode
 
+// 公共错误码
 var (
 	Success          = NewError(0, "成功")
 	Fail             = NewError(10000000, "内部错误")

@@ -77,6 +77,7 @@ func (a *API) httpGet(ctx context.Context, path string) ([]byte, error) {
 	return body, nil
 }
 
+// 获取access token
 func (a *API) getAccessToken(ctx context.Context) (string, error) {
 	body, err := a.httpGet(ctx, fmt.Sprintf("%s?app_key=%s&app_secret=%s", "auth", APP_KEY, APP_SECRET))
 	if err != nil {

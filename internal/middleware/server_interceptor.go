@@ -37,6 +37,7 @@ func ServerTracing(ctx context.Context, req interface{}, info *grpc.UnaryServerI
 	return handler(ctx, req)
 }
 
+// 访问日志拦截器
 func AccessLog(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 	requestLog := "access request log: method: %s, begin_time: %d, request: %v"
 	beginTime := time.Now().Local().Unix()
@@ -50,6 +51,7 @@ func AccessLog(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo,
 	return resp, err
 }
 
+// 错误日志拦截器
 func ErrorLog(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 	resp, err := handler(ctx, req)
 	if err != nil {
@@ -60,6 +62,7 @@ func ErrorLog(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, 
 	return resp, err
 }
 
+// rpc方法抛出的异常进行捕获和记录
 func Recovery(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 	defer func() {
 		if e := recover(); e != nil {

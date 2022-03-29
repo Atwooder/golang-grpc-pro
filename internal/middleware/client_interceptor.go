@@ -41,6 +41,7 @@ func ClientTracing() grpc.UnaryClientInterceptor {
 	}
 }
 
+// 一元调用对应的客户端拦截器
 func UnaryContextTimeout() grpc.UnaryClientInterceptor {
 	return func(ctx context.Context, method string, req, resp interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
 		ctx, cancel := defaultContextTimeout(ctx)
@@ -52,6 +53,7 @@ func UnaryContextTimeout() grpc.UnaryClientInterceptor {
 	}
 }
 
+// 流式调用对应的客户端拦截器
 func StreamContextTimeout() grpc.StreamClientInterceptor {
 	return func(ctx context.Context, desc *grpc.StreamDesc, cc *grpc.ClientConn, method string, streamer grpc.Streamer, opts ...grpc.CallOption) (grpc.ClientStream, error) {
 		ctx, cancel := defaultContextTimeout(ctx)
@@ -63,6 +65,7 @@ func StreamContextTimeout() grpc.StreamClientInterceptor {
 	}
 }
 
+// 对rpc的内部调用设置默认超时控制
 func defaultContextTimeout(ctx context.Context) (context.Context, context.CancelFunc) {
 	var cancel context.CancelFunc
 	if _, ok := ctx.Deadline(); !ok {

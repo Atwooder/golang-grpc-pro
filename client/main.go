@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	loggerSystem "gin-grpc/pkg/log/system"
 	"log"
 
 	"gin-grpc/global"
@@ -19,9 +18,6 @@ func init() {
 }
 
 func main() {
-	loggerSystem.InfoWithFields("错误", loggerSystem.Fields{
-		"error": "-----------err--------",
-	})
 	ctx := context.Background()
 	newCtx := metadata.AppendToOutgoingContext(ctx, "eddycjy", "Go语言编程之旅")
 	clientConn, err := GetClientConn(newCtx, "localhost:8004", []grpc.DialOption{grpc.WithUnaryInterceptor(
@@ -42,6 +38,7 @@ func main() {
 	log.Printf("resp: %v", resp)
 }
 
+// grpc.DialContext 创建给定目标的客户端链接
 func GetClientConn(ctx context.Context, target string, opts []grpc.DialOption) (*grpc.ClientConn, error) {
 	opts = append(opts, grpc.WithInsecure())
 	return grpc.DialContext(ctx, target, opts...)
